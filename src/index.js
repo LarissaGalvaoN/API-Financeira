@@ -27,6 +27,16 @@ app.post("/account", (request, response) => {
 
 });
 
+app.get("/statement", (request, response) => {
+    const {cpf} = request.headers; //recebe o valor por header no insomnia
+    // find retorna o conteúdo
+    const customer = customers.find((customer) => customer.cpf === cpf); 
 
+    if(!customer){
+        return response.status(400).json({error : "Customer not found"})
+    }
+
+    return response.json(customer.statement);
+});
     
 app.listen(3333);
