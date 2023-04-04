@@ -95,8 +95,26 @@ app.post("/withdraw", verifyIfExistsAccountsCPF, (request, response) =>{
         type: "debit"
     };
     customer.statement.push(statementOperation);
-    
+
     return response.status(201).send();
     
 });
+
+app.get("/statement/date", verifyIfExistsAccountsCPF, (request, response) => {
+    const {customer} = request; //recupera a info; desestrutura customer de dentro do request
+    const {date} = request.query; //parametro da rota
+
+    //formatar a data para qualquer horario do dia
+    const dateFormat = new Date(date + " 00:00");
+
+    //filtro pra retornar o statement do dia; tranformar as datas em string (10/10/2021) e comparar
+    const statement = customer.statement.filter(
+        (statement) =>
+         statement.created_at.toDateString() === 
+         new Date(dateFormat).toDateString() 
+    );
+
+    return response.json(statement);
+});
+
 app.listen(3333);
