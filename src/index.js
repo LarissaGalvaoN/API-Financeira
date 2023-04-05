@@ -117,4 +117,27 @@ app.get("/statement/date", verifyIfExistsAccountsCPF, (request, response) => {
     return response.json(statement);
 });
 
+app.put("/account", verifyIfExistsAccountsCPF, (request, response) =>{ 
+    const {name} = request.body; 
+    const {customer} = request;
+
+    customer.name = name;
+
+    return response.status(201).send();
+});
+
+app.get("/account", verifyIfExistsAccountsCPF, (request, response) => {
+    const {customer} = request;
+
+    return response.json(customer);
+});
+
+app.delete("/account", verifyIfExistsAccountsCPF, (request, response) => {
+    const {customer} = request;
+
+    //método splice(onde começa, quantas posições da lista irá remover)
+    customers.splice(customer, 1);
+    // o certo seria retornar 204 de sucesso
+    return response.status(200).json(customers);
+});
 app.listen(3333);
