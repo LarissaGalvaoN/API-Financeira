@@ -11,7 +11,8 @@ Realizar saque;
 Buscar extrato por data;
 Atualizar dados da conta;
 Obter os dados da conta;
-Deletar uma conta
+Deletar uma conta;
+Retornar o saldo
 
 Regras de Negócio:
 Não deve ser possível 
