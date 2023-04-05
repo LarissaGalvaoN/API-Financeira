@@ -140,4 +140,12 @@ app.delete("/account", verifyIfExistsAccountsCPF, (request, response) => {
     // o certo seria retornar 204 de sucesso
     return response.status(200).json(customers);
 });
+
+app.get("/balance", verifyIfExistsAccountsCPF, (request, response) => {
+    const {customer} = request;
+    const balance = getBalance(customer.statement);
+
+    return response.json(balance);
+
+});
 app.listen(3333);
